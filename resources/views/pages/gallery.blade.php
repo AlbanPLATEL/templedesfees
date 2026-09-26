@@ -46,7 +46,7 @@
             <div class="planche-tete monte">
                 <x-fleuron taille="petit" style="color:var(--or-mat)" />
                 <p class="petit">
-                    {{ $vues->count() }} clichés · Chatterie du Temple des Fées · Lapeyrouse-Mornay
+                    {{ $vues->count() }} clichés · La Chatterie du Temple des Fées · Lapeyrouse-Mornay
                 </p>
             </div>
 

@@ -1,4 +1,4 @@
-/* Temple des Fées — interactions du site public.
+/* La Chatterie du Temple des Fées — interactions du site public.
    Sans dépendance : menu, bandeau, apparition au défilement, vue plein
    écran, visionneuse de fiche, transitions de page. */
 

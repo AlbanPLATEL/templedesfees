@@ -28,7 +28,7 @@
              couvrir. Sans elles, le livre s'ouvrait sur une moitie vide. --}}
         <div class="garde tete" aria-hidden="true">
             <x-blason :taille="132" />
-            <span>Chatterie du Temple des Fées</span>
+            <span>La Chatterie du Temple des Fées</span>
             <span class="filet"></span>
             <em>{{ $legende ?? 'Le livre de la maison' }}</em>
         </div>

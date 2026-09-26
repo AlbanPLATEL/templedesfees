@@ -14,7 +14,7 @@
     use App\Models\Setting;
 
     $elevage = [
-        'nom'         => Setting::get('elevage.nom', 'Chatterie du Temple des Fées'),
+        'nom'         => Setting::get('elevage.nom', 'La Chatterie du Temple des Fées'),
         'adresse'     => Setting::get('elevage.adresse'),
         'code_postal' => Setting::get('elevage.code_postal'),
         'ville'       => Setting::get('elevage.ville'),

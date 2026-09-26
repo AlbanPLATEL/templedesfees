@@ -98,7 +98,7 @@
                     <label class="consent" for="c-rgpd">
                         <input type="checkbox" id="c-rgpd" name="rgpd" value="1" @checked(old('rgpd'))>
                         <span>
-                            J'accepte que Chatterie du Temple des Fées conserve ces informations pour répondre à mon
+                            J'accepte que La Chatterie du Temple des Fées conserve ces informations pour répondre à mon
                             message. Elles ne sont jamais transmises à un tiers et sont supprimées au bout
                             de {{ \App\Models\ContactMessage::MOIS_CONSERVATION }} mois.
                             <a href="{{ route('legal') }}">Politique de confidentialité</a>
@@ -140,7 +140,7 @@
 
                 <figure class="vue" style="margin:0">
                     <img src="{{ asset('images/cats/kora.webp') }}"
-                         alt="Maine Coon de la chatterie Chatterie du Temple des Fées" loading="lazy">
+                         alt="Maine Coon de la Chatterie du Temple des Fées" loading="lazy">
                     <figcaption>Fin de journée à la maison</figcaption>
                 </figure>
             </div>
@@ -243,7 +243,7 @@
                     <input type="checkbox" id="a-rgpd" name="rgpd" value="1" @checked(old('rgpd'))>
                     <span>
                         J'accepte que mon avis soit publié sur ce site sous mon prénom seul, et que
-                        Chatterie du Temple des Fées conserve mon adresse email si je l'ai renseignée, uniquement pour
+                        La Chatterie du Temple des Fées conserve mon adresse email si je l'ai renseignée, uniquement pour
                         me recontacter. Mon avis est relu avant publication.
                         <a href="{{ route('legal') }}">Politique de confidentialité</a>
                     </span>

@@ -4,6 +4,7 @@
     $insta = \App\Models\Setting::get('contact.instagram');
     $fb    = \App\Models\Setting::get('contact.facebook');
     $siren = \App\Models\Setting::get('legal.siren');
+    $nom   = \App\Models\Setting::get('elevage.nom', 'La Chatterie du Temple des Fées');
     $telLien = \Illuminate\Support\Str::of($tel)->replace(' ', '')->replaceFirst('0', '+33');
 @endphp
 
@@ -11,7 +12,7 @@
     <div class="wrap">
         <div class="fgrille">
             <div class="fsignature">
-                <h4>Chatterie du Temple des Fées</h4>
+                <h4>{{ $nom }}</h4>
                 <p class="petit resume">
                     Élevage familial de Maine Coon à Lapeyrouse-Mornay (26210), dans la Drôme
                     des collines. Une à deux portées par an, parents dépistés, résultats publiés.
@@ -71,7 +72,7 @@
         </div>
 
         <div class="fbas">
-            <span>© {{ date('Y') }} Temple des Fées — Certificat de capacité · SIREN {{ $siren ?: 'à compléter' }}</span>
+            <span>© {{ date('Y') }} {{ $nom }} — Certificat de capacité · SIREN {{ $siren ?: 'à compléter' }}</span>
             <span>24 chemin Saint-Charles · 26210 Lapeyrouse-Mornay</span>
         </div>
     </div>

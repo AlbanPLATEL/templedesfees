@@ -294,7 +294,7 @@ return [
          */
         'compte' => [
             'email'        => env('BACK_OFFICE_EMAIL', 'letempledesfees@outlook.fr'),
-            'nom'          => 'Chatterie du Temple des Fées',
+            'nom'          => 'La Chatterie du Temple des Fées',
             'mot_de_passe' => env('BACK_OFFICE_MOT_DE_PASSE'),
         ],
     ],

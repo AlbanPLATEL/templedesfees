@@ -32,12 +32,12 @@
     'mainEntityOfPage' => route('articles.show', $article),
     'author' => [
         '@type' => 'Organization',
-        'name'  => \App\Models\Setting::get('elevage.nom', 'Chatterie du Temple des Fées'),
+        'name'  => \App\Models\Setting::get('elevage.nom', 'La Chatterie du Temple des Fées'),
         'url'   => route('home'),
     ],
     'publisher' => [
         '@type' => 'Organization',
-        'name'  => \App\Models\Setting::get('elevage.nom', 'Chatterie du Temple des Fées'),
+        'name'  => \App\Models\Setting::get('elevage.nom', 'La Chatterie du Temple des Fées'),
         'url'   => route('home'),
     ],
 ];

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Chatterie du Temple des Fées")
+@section('title', "La Chatterie du Temple des Fées")
 @section('description', "Chatterie familiale de Maine Coon à Lapeyrouse-Mornay (26). Une à deux portées par an, parents dépistés HCM, SMA et PK-Def, résultats publiés sur chaque fiche.")
 
 @push('schema')
@@ -23,7 +23,7 @@
     '@context' => 'https://schema.org',
     '@type'    => 'LocalBusiness',
     '@id'      => route('home').'#elevage',
-    'name'     => \App\Models\Setting::get('elevage.nom', 'Chatterie du Temple des Fées'),
+    'name'     => \App\Models\Setting::get('elevage.nom', 'La Chatterie du Temple des Fées'),
     'description' => "Élevage familial de Maine Coon à Lapeyrouse-Mornay, dans la Drôme des collines.",
     'url'      => route('home'),
     'image'    => asset('images/cats/karrington.webp'),
@@ -107,13 +107,13 @@
         <div class="portail arche">
             <i><u>
                 <img src="{{ asset('images/cats/karrington.webp') }}"
-                     alt="Maine Coon de la chatterie du Temple des Fées, installé à la maison"
+                     alt="Maine Coon de la Chatterie du Temple des Fées, installé à la maison"
                      width="1200" height="1599" fetchpriority="high">
             </u></i>
         </div>
 
         <div class="texte">
-        <span class="rubrique">Chatterie du Temple des Fées · Lapeyrouse-Mornay (26)</span>
+        <span class="rubrique">La Chatterie du Temple des Fées · Lapeyrouse-Mornay (26)</span>
         <h1 class="or">
             <span class="leve"><span>Le sanctuaire</span></span>
             <span class="leve"><span><em>des géants doux</em></span></span>

@@ -24,7 +24,7 @@
 @if(file_exists(public_path($source)))
     @if($lien)
         <a class="blason-lien" href="{{ route('home') }}"
-           aria-label="Accueil — Chatterie du Temple des Fées">
+           aria-label="Accueil — La Chatterie du Temple des Fées">
             <img class="blason" src="{{ asset($source) }}" alt=""
                  width="{{ $taille }}" height="{{ $taille }}"
                  loading="{{ $urgent ? 'eager' : 'lazy' }}"
@@ -32,7 +32,7 @@
         </a>
     @else
         <img {{ $attributes->merge(['class' => 'blason']) }}
-             src="{{ asset($source) }}" alt="Chatterie du Temple des Fées"
+             src="{{ asset($source) }}" alt="La Chatterie du Temple des Fées"
              width="{{ $taille }}" height="{{ $taille }}"
              loading="{{ $urgent ? 'eager' : 'lazy' }}"
              @if($urgent) fetchpriority="high" @endif decoding="async">

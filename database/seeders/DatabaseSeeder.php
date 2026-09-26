@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
 
         User::updateOrCreate(
             ['email' => env('BACK_OFFICE_EMAIL', 'letempledesfees@outlook.fr')],
-            ['name' => "Chatterie du Temple des Fées", 'password' => Hash::make($motDePasse)],
+            ['name' => "La Chatterie du Temple des Fées", 'password' => Hash::make($motDePasse)],
         );
 
         if (! env('BACK_OFFICE_MOT_DE_PASSE')) {

@@ -114,7 +114,7 @@ class ElevageSeeder extends Seeder
     private function reglages(): void
     {
         $reglages = [
-            ['cle' => 'elevage.nom',          'libelle' => "Nom de l'élevage",        'valeur' => "Chatterie du Temple des Fées", 'groupe' => 'general'],
+            ['cle' => 'elevage.nom',          'libelle' => "Nom de l'élevage",        'valeur' => "La Chatterie du Temple des Fées", 'groupe' => 'general'],
             ['cle' => 'elevage.ville',        'libelle' => 'Ville',                    'valeur' => 'Lapeyrouse-Mornay',            'groupe' => 'general'],
             ['cle' => 'elevage.code_postal',  'libelle' => 'Code postal',              'valeur' => '26210',                        'groupe' => 'general'],
             ['cle' => 'elevage.departement',  'libelle' => 'Département',              'valeur' => 'Drôme',                        'groupe' => 'general'],

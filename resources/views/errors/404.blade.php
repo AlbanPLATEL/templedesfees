@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', "Cette page n'existe pas")
-@section('description', "La page demandée n'existe pas ou plus sur le site de l'élevage Chatterie du Temple des Fées.")
+@section('description', "La page demandée n'existe pas ou plus sur le site de la Chatterie du Temple des Fées.")
 
 @push('head')
     <meta name="robots" content="noindex">

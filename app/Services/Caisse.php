@@ -69,7 +69,7 @@ class Caisse
                     'unit_amount' => $reservation->acompte_centimes,
                     'product_data' => [
                         'name' => "Acompte de réservation — {$chaton?->nom}",
-                        'description' => 'Chatterie du Temple des Fées · '
+                        'description' => 'La Chatterie du Temple des Fées · '
                             .'Acompte déduit du prix du chaton au moment du départ.',
                     ],
                 ],

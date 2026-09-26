@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', "Adopter un chaton Maine Coon — parcours et pré-réservation")
-@section('description', "Le parcours d'adoption chez Chatterie du Temple des Fées en quatre étapes, le détail de ce que couvre l'adoption, et le formulaire de pré-réservation.")
+@section('description', "Le parcours d'adoption à la Chatterie du Temple des Fées en quatre étapes, le détail de ce que couvre l'adoption, et le formulaire de pré-réservation.")
 
 @section('content')
 
@@ -154,7 +154,7 @@
                 <label class="consent" for="f-rgpd">
                     <input type="checkbox" id="f-rgpd" name="rgpd" value="1" @checked(old('rgpd'))>
                     <span>
-                        J'accepte que Chatterie du Temple des Fées conserve ces informations pour traiter ma demande
+                        J'accepte que La Chatterie du Temple des Fées conserve ces informations pour traiter ma demande
                         d'adoption. Elles ne sont jamais transmises à un tiers et sont supprimées au bout
                         de {{ \App\Models\AdoptionRequest::MOIS_CONSERVATION }} mois.
                         <a href="{{ route('legal') }}" style="color:var(--bronze-dim)">Politique de confidentialité</a>
