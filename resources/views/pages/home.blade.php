@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "La Chatterie du Temple des Fées")
+@section('title', \App\Models\Setting::get('elevage.nom', 'La Chatterie du Temple des Fées'))
 @section('description', "Chatterie familiale de Maine Coon à Lapeyrouse-Mornay (26). Une à deux portées par an, parents dépistés HCM, SMA et PK-Def, résultats publiés sur chaque fiche.")
 
 @push('schema')
@@ -113,7 +113,7 @@
         </div>
 
         <div class="texte">
-        <span class="rubrique">La Chatterie du Temple des Fées · Lapeyrouse-Mornay (26)</span>
+        <span class="rubrique">{{ \App\Models\Setting::get('elevage.nom', 'La Chatterie du Temple des Fées') }} · Lapeyrouse-Mornay (26)</span>
         <h1 class="or">
             <span class="leve"><span>Le sanctuaire</span></span>
             <span class="leve"><span><em>des géants doux</em></span></span>

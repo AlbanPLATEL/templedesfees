@@ -4,7 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>@yield('title', "La Chatterie du Temple des Fées") — Élevage de Maine Coon dans la Drôme</title>
+    {{-- Le nom de l’élevage vient du réglage, comme le pied de page et
+         les documents. Écrit en dur ici, il resterait en place le jour où
+         l’éleveur corrige son nom depuis son administration : le pied
+         changerait, l’onglet non, et rien ne signalerait l’écart. --}}
+    @php($nomElevage = \App\Models\Setting::get('elevage.nom', 'La Chatterie du Temple des Fées'))
+    <title>@yield('title', $nomElevage) — Élevage de Maine Coon dans la Drôme</title>
     <meta name="description" content="@yield('description', "Chatterie familiale de Maine Coon à Lapeyrouse-Mornay (26), Drôme des collines. Chatons inscrits au LOOF, parents dépistés HCM, SMA et PK-Def, résultats publiés.")">
     <link rel="canonical" href="{{ url()->current() }}">
 
@@ -23,9 +28,9 @@
     @endif
 
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="La Chatterie du Temple des Fées">
+    <meta property="og:site_name" content="{{ $nomElevage }}">
     <meta property="og:locale" content="fr_FR">
-    <meta property="og:title" content="@yield('title', "La Chatterie du Temple des Fées")">
+    <meta property="og:title" content="@yield('title', $nomElevage)">
     <meta property="og:description" content="@yield('description', "Élevage familial de Maine Coon dans la Drôme. Parents dépistés, résultats publiés.")">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="@yield('og_image', asset('images/cats/karrington.webp'))">

@@ -261,4 +261,54 @@ class BackOfficeOrdreTest extends TestCase
 
         $this->get('/contact')->assertOk()->assertSee('06 12 34 56 78', false);
     }
+
+    /**
+     * Le nom de l'elevage ne doit avoir qu'une seule source.
+     *
+     * Il se presentait a une dizaine d'endroits, ecrit en dur a chaque fois.
+     * Le jour ou l'eleveur corrige son nom depuis son administration, la
+     * moitie de la page le suit et l'autre non : le pied change, l'onglet
+     * reste, et rien ne signale l'ecart — une page a moitie renommee ne
+     * declenche aucune erreur.
+     *
+     * On renomme donc l'elevage depuis l'ecran de l'eleveur, et on exige que
+     * l'ancien nom ne subsiste nulle part dans l'accueil.
+     *
+     * Une exception, et une seule : la marque du bandeau. Ce n'est pas un champ
+     * de texte mais un logotype, compose en trois registres pour tenir dans la
+     * largeur — le renommer demande de recomposer la marque, pas de changer une
+     * valeur. Le nom y est donc coupe par des balises, et le controle ci-dessous
+     * ne le voit pas : c'est voulu, pas un oubli.
+     */
+    public function test_renommer_l_elevage_renomme_toute_la_page(): void
+    {
+        $reglage = \App\Models\Setting::where('cle', 'elevage.nom')->firstOrFail();
+        $ancien  = $reglage->valeur;
+        $nouveau = 'Chatterie des Quatre Vents';
+
+        Livewire::test(\App\Filament\Resources\Settings\Pages\EditSetting::class, [
+            'record' => $reglage->getKey(),
+        ])
+            ->fillForm(['valeur' => $nouveau])
+            ->call('save')
+            ->assertHasNoFormErrors();
+
+        $html = $this->get('/')->assertOk()->getContent();
+
+        $attendus = [
+            "<title>{$nouveau}"                                  => "le titre de l'onglet",
+            "<meta property=\"og:site_name\" content=\"{$nouveau}\">" => 'le nom du site partage',
+            "<meta property=\"og:title\" content=\"{$nouveau}\">"     => 'le titre partage',
+            "<h4>{$nouveau}</h4>"                                => 'la signature du pied',
+        ];
+
+        foreach ($attendus as $fragment => $ou) {
+            $this->assertStringContainsString($fragment, $html,
+                "Renommer l'elevage n'a pas atteint {$ou}.");
+        }
+
+        $this->assertStringNotContainsString($ancien, $html,
+            "L'ancien nom subsiste dans l'accueil : il y est ecrit en dur "
+            .'quelque part au lieu de venir du reglage.');
+    }
 }

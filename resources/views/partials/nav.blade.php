@@ -17,7 +17,13 @@
 <header class="bandeau" id="bandeau">
 
     <a class="marque" href="{{ route('home') }}">
-        {{-- Le nom complet, en deux registres : l’article et le nom commun
+        {{-- Un logotype, pas un champ de texte : le nom est composé ici
+             en trois registres, et c’est la seule raison pour laquelle il
+             ne vient pas du réglage elevage.nom comme partout ailleurs.
+             Le renommer demanderait de recomposer la marque, pas de
+             changer une valeur.
+
+             Le nom complet, en deux registres : l’article et le nom commun
              au-dessus, le nom propre en or. D’une seule ligne il tiendrait
              près de 480 px de capitales espacées et viendrait buter dans le
              menu — le bandeau a déjà débordé une fois pour bien moins. --}}

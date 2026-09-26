@@ -69,7 +69,7 @@
                 @if(file_exists(public_path('images/blason-192.png')))
                     <img src="{{ asset('images/blason-192.png') }}" alt="" width="28" height="28">
                 @endif
-                <b>La Chatterie du Temple des Fées</b>
+                <b>{{ \App\Models\Setting::get('elevage.nom', 'La Chatterie du Temple des Fées') }}</b>
             </span>
 
             <button class="fermer" type="button" aria-label="Fermer et entrer sur le site">
