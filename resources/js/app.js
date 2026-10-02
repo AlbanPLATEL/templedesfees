@@ -400,8 +400,15 @@ document.querySelectorAll('.viseur').forEach((viseur) => {
 
 const NOM_VT = 'photo-fiche';
 
-const photoDeLaFiche = () =>
-    document.querySelector('.scene img.visible') ?? document.querySelector('.portail img');
+/* Seule la grande photo d'une fiche a un homologue dans une liste.
+   L'arche de l'accueil n'en a pas, et elle etait pourtant nommee : le
+   selecteur retombait sur « .portail img », qui n'existe qu'a cet endroit.
+
+   Une image nommee est extraite dans le calque de la transition, ou le
+   overflow:hidden de son cadre ne s'applique plus. La photo de l'accueil
+   ressortait donc en rectangle par-dessus l'arche, et la hauteur forcee sur
+   l'instantane la faisait paraitre agrandie. */
+const photoDeLaFiche = () => document.querySelector('.scene img.visible');
 
 const photoDeLaCarte = (url) => {
     if (!url) return null;
@@ -425,8 +432,14 @@ window.addEventListener('pageswap', (e) => {
     nommer(photoDeLaCarte(e.activation?.entry?.url) ?? photoDeLaFiche(), e.viewTransition);
 });
 
+/* Un rechargement n'a pas d'homologue : la page de depart est la page
+   d'arrivee. Nommer une image pour rien la sort de son cadre le temps du
+   fondu, pour un raccord qui ne relie rien. */
+const estUnRechargement = () =>
+    window.navigation?.activation?.navigationType === 'reload';
+
 window.addEventListener('pagereveal', (e) => {
-    if (!e.viewTransition) return;
+    if (!e.viewTransition || estUnRechargement()) return;
     // Sur une fiche c'est la grande photo ; sur une liste, la vignette d'où
     // l'on vient — le retour arrière replie l'image sur son cadre.
     nommer(
