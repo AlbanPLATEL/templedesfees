@@ -50,7 +50,7 @@
             </a>
             <a class="cellule" href="{{ route('contact') }}" style="text-decoration:none">
                 <span class="n">Nous joindre</span>
-                <p>Par téléphone, par email, ou en venant nous voir sur rendez-vous.</p>
+                <p>Par téléphone ou par email. Nous répondons sous 48 heures.</p>
             </a>
         </div>
 

@@ -90,7 +90,7 @@
                 </div>
 
                 <ul>
-                    <li><a href="{{ route('contact') }}">Venir nous voir</a></li>
+                    <li><a href="{{ route('contact') }}">Nous écrire</a></li>
                     <li><a href="{{ route('faq') }}">Questions fréquentes</a></li>
                 </ul>
             </div>

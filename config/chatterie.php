@@ -210,7 +210,7 @@ return [
         ],
         [
             'titre' => "La maison",
-            'texte' => "Les chatons naissent au milieu de la maison, pas dans un box au fond du jardin. Ils grandissent avec l’aspirateur, la sonnette, les casseroles et les visites. C’est ce qui fait un chat qui ne se cache pas sous le canapé le jour où il change de vie.",
+            'texte' => "Les chatons naissent au milieu de la maison, pas dans un box au fond du jardin. Ils grandissent avec l’aspirateur, la sonnette, les casseroles et les allées et venues de la maison. C’est ce qui fait un chat qui ne se cache pas sous le canapé le jour où il change de vie.",
         ],
         [
             'titre' => "Le nombre",

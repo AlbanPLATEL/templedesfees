@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', "Contact — venir voir les chatons")
-@section('description', "Écrivez-nous ou appelez la Chatterie du Temple des Fées à Lapeyrouse-Mornay (26), dans la Drôme des collines. Visites sur rendez-vous, réponse sous 48 heures.")
+@section('title', "Contact — écrivez-nous")
+@section('description', "Écrivez-nous ou appelez la Chatterie du Temple des Fées à Lapeyrouse-Mornay (26), dans la Drôme des collines. Réponse sous 48 heures.")
 
 @php
     $tel    = \App\Models\Setting::get('contact.telephone');
@@ -93,7 +93,7 @@
                     <div class="champ plein">
                         <label for="c-message">Votre message</label>
                         <textarea id="c-message" name="message" required
-                                  placeholder="Dites-nous ce qui vous amène : un chaton en particulier, une visite, une question sur la race…">{{ old('message') }}</textarea>
+                                  placeholder="Dites-nous ce qui vous amène : un chaton en particulier, une question sur la race…">{{ old('message') }}</textarea>
                     </div>
 
                     <label class="consent" for="c-rgpd">
@@ -116,7 +116,7 @@
                     <table>
                         <tr><th>Téléphone</th><td><a href="tel:{{ $telRaw }}" style="color:var(--bronze-lt);text-decoration:none">{{ $tel }}</a></td></tr>
                         <tr><th>Email</th><td><a href="mailto:{{ $mail }}" style="color:var(--bronze-lt);text-decoration:none">{{ $mail }}</a></td></tr>
-                        <tr><th>Visites</th><td>Sur rendez-vous, week-end et fin de journée</td></tr>
+                        <tr><th>Les chatons</th><td>Pas de visite avant le départ — pour les protéger tant qu’ils ne sont pas vaccinés</td></tr>
                         <tr><th>Réponse</th><td>Sous 48 heures maximum</td></tr>
                     </table>
                 </x-record>
@@ -139,7 +139,7 @@
 
                 <div class="btnrow">
                     <a class="btn" href="tel:{{ $telRaw }}">Appeler l'élevage</a>
-                    <a class="btn creux" href="{{ route('adoption.create') }}">Demander une visite</a>
+                    <a class="btn creux" href="{{ route('adoption.create') }}">Faire une demande d’adoption</a>
                 </div>
 
                 <figure class="vue" style="margin:0">
@@ -240,7 +240,7 @@
                 <div class="champ plein" style="grid-column:1/-1">
                     <label for="a-texte">Votre avis</label>
                     <textarea id="a-texte" name="texte" maxlength="1500" required
-                              placeholder="Votre expérience avec l'élevage : la préparation, la visite, l'arrivée du chaton chez vous.">{{ old('texte') }}</textarea>
+                              placeholder="Votre expérience avec l'élevage : la préparation, les échanges, l'arrivée du chaton chez vous.">{{ old('texte') }}</textarea>
                 </div>
 
                 <label class="consent" for="a-rgpd">

@@ -13,10 +13,24 @@ class ContactMessage extends Model
 {
     public const MOIS_CONSERVATION = 12;
 
-    /** Les objets proposes dans le formulaire. */
+    /**
+     * Tous les objets, y compris ceux qu'on ne propose plus.
+     *
+     * « Visiter l'elevage » a disparu du formulaire le jour ou l'elevage a
+     * cesse de recevoir avant le depart des chatons. La clef reste : des
+     * messages la portent deja, et les effacer de cette liste les afficherait
+     * sous leur nom technique dans le back-office.
+     */
     public const OBJETS = [
         'adoption' => 'Adopter un chaton',
         'visite'   => "Visiter l'élevage",
+        'race'     => 'Une question sur la race',
+        'autre'    => 'Autre demande',
+    ];
+
+    /** Ceux que le formulaire propose aujourd'hui. */
+    public const OBJETS_PROPOSES = [
+        'adoption' => 'Adopter un chaton',
         'race'     => 'Une question sur la race',
         'autre'    => 'Autre demande',
     ];

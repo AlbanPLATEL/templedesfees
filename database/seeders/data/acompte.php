@@ -15,9 +15,18 @@
 
     Deux points meritent une relecture attentive avant publication :
     l'acompte acquis en cas de renoncement, et le droit de retractation d'une
-    vente a distance. Le parcours du site — une visite avant toute reservation
-    — a ete pense pour que la reservation ne soit pas conclue a distance, mais
-    c'est a un professionnel du droit de le confirmer.
+    vente a distance.
+
+    ATTENTION. Ce texte a ete ecrit quand le parcours imposait une visite avant
+    toute reservation : c'est ce deplacement qui devait empecher la vente d'etre
+    conclue a distance. L'elevage ne recoit plus de visite avant le depart, pour
+    une raison sanitaire tenant aux chatons non vaccines. La reservation et
+    l'acompte se nouent donc desormais sans que personne se soit deplace.
+
+    La question du droit de retractation de quatorze jours se pose donc
+    franchement, et elle n'est pas theorique : elle porte sur un chaton retire de
+    la vente pendant des semaines. Elle est a trancher par un professionnel du
+    droit avant la mise en ligne, pas apres.
 */
 
 return <<<'TEXTE'
@@ -31,7 +40,7 @@ L’acompte réserve un chaton précis au nom d’une famille précise. Dès son
 
 **Si l’élevage ne peut pas céder le chaton.** En cas de maladie, de décès ou de toute cause tenant à l’élevage, l’acompte est intégralement remboursé sous quinze jours. La famille peut aussi choisir de le reporter sur une portée suivante.
 
-**Entre la réservation et le départ.** Vous recevez des nouvelles et des photos chaque semaine, et vous pouvez venir voir le chaton sur rendez-vous.
+**Entre la réservation et le départ.** Vous recevez des nouvelles et des photos chaque semaine, et nous sommes joignables autant que vous le souhaitez, en visio si vous préférez. Les chatons ne reçoivent pas de visite tant qu’ils ne sont pas vaccinés : c’est le jour du départ que vous rencontrez le vôtre.
 
 **Le départ.** Le chaton part à douze semaines au plus tôt, identifié, primo-vacciné et rappelé, vermifugé, avec son certificat vétérinaire de bonne santé, son pedigree LOOF et un contrat de cession signé.
 

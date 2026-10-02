@@ -397,8 +397,15 @@ réservation, juste au-dessus de la case à cocher, et sur les mentions légales
 C'est un **texte de départ**, dans `seeders/data/acompte.php`, modifiable depuis
 Le site › Réglages. Deux points méritent une relecture par un professionnel :
 l'acompte acquis en cas de renoncement, et le droit de rétractation d'une vente
-à distance — le parcours du site impose une visite avant toute réservation,
-précisément pour que celle-ci ne soit pas conclue à distance.
+à distance.
+
+⚠️ Ce texte a été écrit quand le parcours imposait une visite avant toute
+réservation : c'est ce déplacement qui devait empêcher la vente d'être conclue
+à distance. **L'élevage ne reçoit plus de visite avant le départ**, pour une
+raison sanitaire tenant aux chatons non vaccinés. La réservation et l'acompte
+se nouent donc désormais sans que personne se soit déplacé, et la question des
+quatorze jours de rétractation se pose franchement. À trancher avant la mise
+en ligne, pas après.
 
 En revanche, **aucun numéro SIREN ni certificat de capacité n'est inventé**.
 Un numéro d'immatriculation fabriqué, publié sur un site, est une fausse mention

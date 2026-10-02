@@ -12,7 +12,7 @@ class ContactController extends Controller
     public function show()
     {
         return view('pages.contact', [
-            'objets' => ContactMessage::OBJETS,
+            'objets' => ContactMessage::OBJETS_PROPOSES,
             'points' => config('chatterie.carte'),
             'avis'   => Review::publies()->get(),
             'itineraire' => self::itineraires(),

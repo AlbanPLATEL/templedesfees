@@ -63,7 +63,7 @@
                 <h4>Votre question n'y est pas ?</h4>
                 <p>Appelez-nous. On répond plus volontiers au téléphone qu'en trois lignes, surtout quand il s'agit de savoir si un Maine Coon est fait pour vous.</p>
                 <a class="btn" href="tel:+33677354587" style="justify-content:center">{{ \App\Models\Setting::get('contact.telephone') }}</a>
-                <a class="lien" href="{{ route('adoption.create') }}">Demander une visite</a>
+                <a class="lien" href="{{ route('adoption.create') }}">Faire une demande d’adoption</a>
             </aside>
         </div>
     </div>

@@ -145,7 +145,7 @@
             </g>
 
             {{-- L'élevage. Le disque marque la commune, pas la maison :
-                 l'adresse exacte se donne au rendez-vous. --}}
+                 l'adresse exacte se donne au moment du depart. --}}
             <g class="elevage">
                 <circle cx="{{ $ex }}" cy="{{ $ey }}" r="{{ round(6 * $uParKm, 1) }}"
                         fill="url(#halo-elevage)"/>
@@ -185,7 +185,7 @@
         <p>
             L’élevage est à <strong>Lapeyrouse-Mornay</strong>, à dix minutes de la sortie
             de Saint-Rambert-d’Albon et à une heure de Lyon comme de Saint-Étienne.
-            L’adresse exacte vous est communiquée à la prise de rendez-vous.
+            L’adresse exacte vous est communiquée au moment du départ du chaton.
         </p>
         <p>Nous pouvons venir vous chercher à la gare de La Verpillière.</p>
 

@@ -309,8 +309,8 @@
                 <h2>Le départ</h2>
                 <p class="lede">
                     Un chaton ne se commande pas. Il part à douze semaines au plus tôt, identifié,
-                    vacciné, vermifugé, avec son pedigree et son contrat. Entre la première visite
-                    et le jour du départ, il se passe trois mois.
+                    vacciné, vermifugé, avec son pedigree et son contrat. Entre le premier
+                    message et le jour du départ, il se passe trois mois.
                 </p>
                 <div class="btnrow" style="margin-top:8px">
                     <a class="btn creux" href="{{ route('adoption.create') }}">Le parcours en détail</a>
@@ -325,8 +325,8 @@
                 </li>
                 <li class="faite">
                     <span class="pt" aria-hidden="true"></span>
-                    <span><span class="quand">La visite</span>
-                    <span class="quoi">Vous venez à la maison, vous voyez les parents, vous voyez où les chatons grandissent. L'adresse exacte est communiquée au rendez-vous.</span></span>
+                    <span><span class="quand">On apprend à se connaître</span>
+                    <span class="quoi">Par téléphone, par photos, en visio si vous voulez. Les chatons ne reçoivent pas de visite : tant qu'ils ne sont pas vaccinés, ils n'ont aucune défense contre ce qu'on rapporte sous ses chaussures.</span></span>
                 </li>
                 <li class="encours">
                     <span class="pt" aria-hidden="true"></span>
@@ -336,7 +336,7 @@
                 <li>
                     <span class="pt" aria-hidden="true"></span>
                     <span><span class="quand">Douze semaines</span>
-                    <span class="quoi">Identifié, primo-vacciné et rappelé, vermifugé, testé, pedigree LOOF en main. Pas un jour avant.</span></span>
+                    <span class="quoi">Identifié, primo-vacciné et rappelé, vermifugé, testé, pedigree LOOF en main. Pas un jour avant. C'est ce jour-là que vous le rencontrez, et que vous repartez avec lui.</span></span>
                 </li>
                 <li>
                     <span class="pt" aria-hidden="true"></span>

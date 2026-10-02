@@ -265,7 +265,7 @@ return [
         ],
         [
             'Peut-on venir voir les chatons avant de réserver ?',
-            'Oui, et c\'est même souhaité. La visite se fait sur rendez-vous, à la maison : vous voyez la mère, vous voyez où les chatons grandissent. L\'adresse exacte est communiquée à la prise de rendez-vous.',
+            'Non, et c’est pour eux. Tant qu’ils ne sont pas primo-vaccinés, les chatons n’ont aucune défense contre ce qu’on rapporte de l’extérieur : un typhus ou un coryza voyage très bien sous une semelle, depuis un autre élevage, une animalerie ou un salon. Nous ne faisons aucune exception, pas même pour les familles qui ont déjà réservé. En échange, vous recevez des photos et des nouvelles chaque semaine, et nous sommes au téléphone autant que vous le voulez — en visio si vous préférez. Vous rencontrez votre chaton le jour du départ, et vous repartez avec lui.',
         ],
         [
             'Que se passe-t-il si je ne peux plus garder le chat ?',

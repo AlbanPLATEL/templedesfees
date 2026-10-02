@@ -16,7 +16,7 @@ class StoreContactMessage extends FormRequest
     public function rules(): array
     {
         return [
-            'objet'     => ['required', Rule::in(array_keys(ContactMessage::OBJETS))],
+            'objet'     => ['required', Rule::in(array_keys(ContactMessage::OBJETS_PROPOSES))],
             'prenom'    => ['required', 'string', 'max:80'],
             'nom'       => ['nullable', 'string', 'max:80'],
             'email'     => ['required', 'email:rfc', 'max:150'],

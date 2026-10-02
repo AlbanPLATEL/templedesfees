@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', "Adopter un chaton Maine Coon — parcours et pré-réservation")
-@section('description', "Le parcours d'adoption à la Chatterie du Temple des Fées en quatre étapes, le détail de ce que couvre l'adoption, et le formulaire de pré-réservation.")
+@section('description', "Le parcours d'adoption à la Chatterie du Temple des Fées en quatre étapes, pourquoi les chatons ne reçoivent pas de visite, et le formulaire de pré-réservation.")
 
 @section('content')
 
@@ -16,9 +16,9 @@
 
         <div class="cellules">
             <div class="cellule"><span class="n">ÉTAPE 01</span><h3>Vous nous écrivez</h3><p>Le formulaire plus bas, ou un appel. Parlez-nous de votre foyer, de vos autres animaux, de votre rythme de vie. Réponse sous 48 heures.</p></div>
-            <div class="cellule"><span class="n">ÉTAPE 02</span><h3>Vous venez les voir</h3><p>Visite sur rendez-vous à Lapeyrouse-Mornay. Vous rencontrez la mère, la fratrie complète, et vous voyez l'endroit où ils grandissent.</p></div>
-            <div class="cellule"><span class="n">ÉTAPE 03</span><h3>Réservation et contrat</h3><p>Nous vous envoyons le contrat de réservation et un lien privé pour l'acompte. Dès qu'il est réglé, le chaton est retiré de la vente — et vous recevez des nouvelles chaque semaine jusqu'au départ.</p></div>
-            <div class="cellule"><span class="n">ÉTAPE 04</span><h3>Le grand jour</h3><p>À {{ \App\Models\Litter::SEMAINES_AVANT_CESSION }} semaines minimum : pedigree LOOF, carnet de santé, certificat vétérinaire, puce ICAD, contrat et kit d'alimentation.</p></div>
+            <div class="cellule"><span class="n">ÉTAPE 02</span><h3>On apprend à se connaître</h3><p>Photos, nouvelles, appels, visio si vous le souhaitez. <strong>Les chatons ne reçoivent pas de visite</strong> : tant qu'ils ne sont pas vaccinés, ce qu'un visiteur rapporte sous ses chaussures peut les emporter. Nous ne faisons pas d'exception.</p></div>
+            <div class="cellule"><span class="n">ÉTAPE 03</span><h3>Réservation et contrat</h3><p>Nous vous envoyons le contrat de réservation et un lien privé qui récapitule tout : le chaton, le montant de l’acompte et la façon de le verser. Dès qu'il est réglé, le chaton est retiré de la vente — et vous recevez des nouvelles chaque semaine jusqu'au départ.</p></div>
+            <div class="cellule"><span class="n">ÉTAPE 04</span><h3>Le grand jour</h3><p>C'est ce jour-là que vous le rencontrez. À {{ \App\Models\Litter::SEMAINES_AVANT_CESSION }} semaines minimum : pedigree LOOF, carnet de santé, certificat vétérinaire, puce ICAD, contrat et kit d'alimentation.</p></div>
         </div>
     </div>
 </section>

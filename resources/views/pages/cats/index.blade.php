@@ -114,7 +114,7 @@
 
         <div class="btnrow monte" style="justify-content:center;margin-top:clamp(30px,4vw,44px)">
             <a class="btn" href="{{ route('kittens.index') }}">Voir les chatons</a>
-            <a class="btn creux" href="{{ route('contact') }}">Venir nous voir</a>
+            <a class="btn creux" href="{{ route('contact') }}">Nous écrire</a>
         </div>
     </div>
 </section>
