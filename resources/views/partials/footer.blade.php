@@ -27,25 +27,32 @@
                 @endif
             </div>
 
-            <div>
-                <h4>L'élevage</h4>
+            {{-- Deux groupes de quatre, et des intitulés qui disent vrai.
+                 Il y en avait six d'un côté et quatre de l'autre, sous des
+                 titres qui ne tenaient pas : la galerie et le Maine Coon ne
+                 sont pas « l'élevage », et les mentions légales ne sont pas
+                 « adopter ». Dix liens gris de même poids sous des titres
+                 approximatifs ne font pas deux listes, ils font un bloc.
+
+                 Les mentions légales descendent au bas de page, auprès du
+                 numéro de SIREN : c'est là qu'on les cherche. --}}
+            <div class="fliens">
+                <h4>Adopter</h4>
                 <ul>
                     <li><a href="{{ route('kittens.index') }}">Chatons disponibles</a></li>
                     <li><a href="{{ route('cats.index') }}">Nos reproducteurs</a></li>
-                    <li><a href="{{ route('articles.index') }}">Articles</a></li>
-                    <li><a href="{{ route('gallery') }}">Galerie</a></li>
-                    <li><a href="{{ route('breed') }}">Le Maine Coon</a></li>
-                    <li><a href="{{ route('hommage') }}">En mémoire d'Olimpia</a></li>
+                    <li><a href="{{ route('adoption.create') }}">Le parcours</a></li>
+                    <li><a href="{{ route('adoption.create') }}#couverture">Ce que couvre l'adoption</a></li>
                 </ul>
             </div>
 
-            <div>
-                <h4>Adopter</h4>
+            <div class="fliens">
+                <h4>Découvrir</h4>
                 <ul>
-                    <li><a href="{{ route('adoption.create') }}">Le parcours</a></li>
-                    <li><a href="{{ route('adoption.create') }}#couverture">Ce que couvre l'adoption</a></li>
-                    <li><a href="{{ route('faq') }}">Questions fréquentes</a></li>
-                    <li><a href="{{ route('legal') }}">Mentions légales &amp; RGPD</a></li>
+                    <li><a href="{{ route('breed') }}">Le Maine Coon</a></li>
+                    <li><a href="{{ route('articles.index') }}">Articles</a></li>
+                    <li><a href="{{ route('gallery') }}">Galerie</a></li>
+                    <li><a href="{{ route('hommage') }}">En mémoire d'Olimpia</a></li>
                 </ul>
             </div>
 
@@ -84,12 +91,14 @@
 
                 <ul>
                     <li><a href="{{ route('contact') }}">Venir nous voir</a></li>
+                    <li><a href="{{ route('faq') }}">Questions fréquentes</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="fbas">
-            <span>© {{ date('Y') }} {{ $nom }} — Certificat de capacité · SIREN {{ $siren ?: 'à compléter' }}</span>
+            <span>© {{ date('Y') }} {{ $nom }} — Certificat de capacité · SIREN {{ $siren ?: 'à compléter' }}
+                · <a href="{{ route('legal') }}">Mentions légales &amp; RGPD</a></span>
             <span>24 chemin Saint-Charles · 26210 Lapeyrouse-Mornay</span>
         </div>
     </div>

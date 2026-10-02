@@ -838,9 +838,36 @@ footer{background:var(--nuit-2);border-top:1px solid var(--filet);
 @media(max-width:540px){.fgrille{grid-template-columns:1fr}}
 footer h4{margin:0 0 16px;font-family:var(--pierre);font-size:10px;font-weight:500;
   letter-spacing:.2em;text-transform:uppercase;color:var(--or-mat)}
-footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
 footer a{font-size:14.5px;color:var(--ivoire-dim);transition:color .3s}
 footer a:hover{color:var(--or-clair)}
+
+/* Un filet court sous chaque intitulé. Sans lui, les listes de liens
+   forment une seule masse grise où l’œil ne voit pas où un groupe
+   commence — et un pied de page se parcourt du regard, il ne se lit pas. */
+footer h4{position:relative;padding-bottom:11px}
+footer h4::after{content:"";position:absolute;left:0;bottom:0;
+  width:24px;height:1px;background:linear-gradient(90deg,var(--or-mat),transparent)}
+
+/* Le survol tire le lien d’un cran et allume un tiret devant lui. Un
+   simple changement de couleur ne se voit pas sur un fond déjà sombre. */
+.fliens a{position:relative;display:inline-block;transition:color .3s,transform .34s var(--ease)}
+.fliens a::before{content:"";position:absolute;left:-15px;top:.62em;
+  width:9px;height:1px;background:var(--or);
+  opacity:0;transform:translateX(-5px);transition:opacity .3s,transform .34s var(--ease)}
+.fliens a:hover::before{opacity:1;transform:translateX(0)}
+.fliens a:hover{transform:translateX(5px)}
+
+/* La colonne de droite est centrée : son filet l’est aussi, et ses liens
+   ne se décalent pas — un texte centré qui glisse donne le tournis. */
+.fjoindre h4::after{left:50%;transform:translateX(-50%);width:34px;
+  background:linear-gradient(90deg,transparent,var(--or-mat),transparent)}
+
+/* Les mentions légales, au bas de page : le lien se distingue du texte
+   qui l’entoure sans crier. */
+.fbas a{font-size:inherit;letter-spacing:inherit;color:var(--ivoire-dim);
+  border-bottom:1px solid var(--filet);padding-bottom:1px}
+.fbas a:hover{color:var(--or-clair);border-bottom-color:var(--or-mat)}
 .fsignature .resume{max-width:36ch}
 /* Le titre, les deux rangees et le lien du bas partagent le meme axe :
    une colonne de pastilles centrees sous un titre cale a gauche donne
