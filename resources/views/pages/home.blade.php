@@ -106,9 +106,18 @@
     <div class="duo">
         <div class="portail arche">
             <i><u>
-                <img src="{{ asset('images/cats/karrington.webp') }}"
-                     alt="Maine Coon de la Chatterie du Temple des Fées, installé à la maison"
-                     width="1200" height="1599" fetchpriority="high">
+                {{-- L’arche a sa propre photo, qui ne dépend d’aucune fiche :
+                     prendre celle d’un reproducteur revenait à ce qu’une
+                     dépublication emporte la page d’accueil avec elle.
+
+                     Elle passe par <x-img> comme les autres. Elle n’avait
+                     aucun srcset et se téléchargeait en pleine taille jusque
+                     dans un cadre de 322 px — c’est la plus grosse image de
+                     la page, et la première que le visiteur attend. --}}
+                <x-img src="images/cats/accueil.webp"
+                       alt="Maine Coon de la Chatterie du Temple des Fées, installé à la maison"
+                       sizes="(max-width:900px) 322px, 434px"
+                       :largeur="800" :hauteur="1143" :urgent="true" />
             </u></i>
         </div>
 
