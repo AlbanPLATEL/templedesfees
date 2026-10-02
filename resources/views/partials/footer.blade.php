@@ -52,20 +52,33 @@
             <div class="fjoindre">
                 <h4>Nous joindre</h4>
 
-                {{-- Quatre pictogrammes plutôt que quatre lignes de texte. Le
-                     libellé complet reste dans l'intitulé accessible de chaque
-                     lien : rien n'est perdu pour un lecteur d'écran. --}}
+                {{-- Des pictogrammes plutôt que des lignes de texte. Le libellé
+                     complet reste dans l'intitulé accessible de chaque lien :
+                     rien n'est perdu pour un lecteur d'écran.
+
+                     Deux rangées, et pas une file : ce qui nous joint
+                     directement d'un côté — le téléphone et le courriel — les
+                     réseaux où l'on nous suit de l'autre. Ce ne sont pas les
+                     mêmes gestes. Et comme chaque réseau peut être absent, le
+                     groupe se resserre tout seul au lieu de laisser un trou. --}}
                 <div class="socials">
-                    <x-social-link type="tel"  :url="'tel:'.$telLien" :handle="$tel" />
-                    <x-social-link type="mail" :url="'mailto:'.$mail" :handle="$mail" />
-                    @if($insta)
-                        <x-social-link type="instagram" :url="$insta" handle="chatteriedutempledesfees" />
-                    @endif
-                    @if($fb)
-                        <x-social-link type="facebook" :url="$fb" handle="Chatterie du Temple des Fées" />
-                    @endif
-                    @if($tt)
-                        <x-social-link type="tiktok" :url="$tt" handle="@templedesfees" />
+                    <div class="socials-rang">
+                        <x-social-link type="tel"  :url="'tel:'.$telLien" :handle="$tel" />
+                        <x-social-link type="mail" :url="'mailto:'.$mail" :handle="$mail" />
+                    </div>
+
+                    @if($insta || $fb || $tt)
+                        <div class="socials-rang">
+                            @if($insta)
+                                <x-social-link type="instagram" :url="$insta" handle="chatteriedutempledesfees" />
+                            @endif
+                            @if($fb)
+                                <x-social-link type="facebook" :url="$fb" handle="Chatterie du Temple des Fées" />
+                            @endif
+                            @if($tt)
+                                <x-social-link type="tiktok" :url="$tt" handle="@templedesfees" />
+                            @endif
+                        </div>
                     @endif
                 </div>
 

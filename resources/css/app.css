@@ -828,10 +828,12 @@ form.demande .plein{grid-column:1/-1}
 /* ── pied ────────────────────────────────────────────────────────── */
 footer{background:var(--nuit-2);border-top:1px solid var(--filet);
   padding-block:clamp(44px,6vw,68px) 30px;position:relative;z-index:2}
-/* La derniere colonne porte quatre pastilles de 40 px : elle a besoin de
-   plus de place que les listes de liens, sinon la quatrieme passe seule a
-   la ligne. */
-.fgrille{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.25fr;gap:34px}
+/* La derniere colonne portait ses pastilles a la file, et reclamait pour
+   cela une largeur en trop : sans elle, la quatrieme passait seule a la
+   ligne. Avec un cinquieme reseau la file ne tenait plus de toute facon.
+   Les pastilles se rangent donc en deux temps, et la largeur empruntée
+   revient aux listes de liens. */
+.fgrille{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px}
 @media(max-width:860px){.fgrille{grid-template-columns:1fr 1fr}}
 @media(max-width:540px){.fgrille{grid-template-columns:1fr}}
 footer h4{margin:0 0 16px;font-family:var(--pierre);font-size:10px;font-weight:500;
@@ -840,7 +842,14 @@ footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;
 footer a{font-size:14.5px;color:var(--ivoire-dim);transition:color .3s}
 footer a:hover{color:var(--or-clair)}
 .fsignature .resume{max-width:36ch}
-.fjoindre .socials{margin-bottom:18px}
+/* Le titre, les deux rangees et le lien du bas partagent le meme axe :
+   une colonne de pastilles centrees sous un titre cale a gauche donne
+   l’impression que quelque chose a glisse. */
+.fjoindre{text-align:center}
+.fjoindre h4{margin-bottom:14px}
+.fjoindre .socials{flex-direction:column;align-items:center;gap:12px;margin-bottom:18px}
+.fjoindre ul{align-items:center}
+.socials-rang{display:flex;align-items:center;gap:11px}
 .fbas{margin-top:44px;padding-top:22px;border-top:1px solid var(--filet-2);
   display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;
   font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ivoire-dim)}
