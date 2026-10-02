@@ -1377,6 +1377,10 @@ a.case:hover{border-color:var(--or-ombre);background:var(--emeraude)}
     #FDCB5C 0%,#F8853C 21%,#EE2A7B 51%,#9C36B5 76%,#5B51D8 100%)}
 .social--facebook{--halo:24,119,242;
   --teinte:linear-gradient(180deg,#4A90F7,#1877F2 55%,#0D5CC4)}
+/* Les trois couleurs de TikTok, dans l’ordre où la marque les pose :
+   le cyan, le noir, le rose. */
+.social--tiktok{--halo:254,44,85;
+  --teinte:linear-gradient(180deg,#25F4EE,#0F0F12 52%,#FE2C55)}
 .social--tel{--halo:52,184,108;
   --teinte:linear-gradient(180deg,#63D693,#34B86C 55%,#1F8C4E)}
 .social--mail{--halo:245,240,230;

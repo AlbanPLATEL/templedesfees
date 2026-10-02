@@ -162,7 +162,36 @@
                     </div>
                 </x-record>
 
-                @if($reservation->peutEtrePayee())
+                @if($reservation->peutEtrePayee() && Caisse::horsLigne())
+                    {{-- Le règlement hors ligne. Pas de bouton : on dit où
+                         verser, et l’éleveur enregistre l’acompte à son arrivée
+                         depuis son espace. Le reste de la page ne bouge pas —
+                         le chaton, ce que couvre l’acompte, les conditions et le
+                         contrat sont là de la même façon. --}}
+                    <x-record titre="Comment verser l’acompte"
+                              meta="{{ $reservation->acompteFormate() }}"
+                              note="L’acompte bloque {{ $chaton?->nom }} dès qu’il nous parvient. Vous recevez alors votre facture, ici même.">
+                        @php($commentPayer = \App\Models\Setting::get('paiement.instructions'))
+
+                        @if($commentPayer)
+                            <x-texte-riche :texte="$commentPayer" />
+                        @else
+                            <p>
+                                Le versement se fait directement auprès de nous, par virement
+                                ou de la main à la main lors de votre visite. Appelez-nous ou
+                                écrivez-nous : nous vous indiquons la marche à suivre et nous
+                                convenons du moment.
+                            </p>
+                        @endif
+
+                        <div class="btnrow" style="margin-top:6px">
+                            <a class="btn" href="{{ route('contact') }}">Nous joindre</a>
+                            <a class="btn creux" href="{{ route('kittens.show', $chaton) }}">
+                                Revoir la fiche de {{ $chaton?->nom }}
+                            </a>
+                        </div>
+                    </x-record>
+                @elseif($reservation->peutEtrePayee())
                     <form method="POST" action="{{ route('reservation.payer', ['jeton' => $reservation->jeton]) }}"
                           class="demande">
                         @csrf

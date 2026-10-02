@@ -40,6 +40,24 @@ class Caisse
         return config('chatterie.paiement.demonstration') && ! self::estOuverte();
     }
 
+    /**
+     * Le règlement hors ligne.
+     *
+     * Ni compte de paiement, ni démonstration : l’acompte se verse
+     * autrement — virement, chèque, espèces remises à la visite. C’est le
+     * cas le plus fréquent chez un éleveur, et l’administration sait déjà
+     * l’enregistrer : « Acompte reçu (hors ligne) » marque la réservation
+     * payée, bloque le chaton et numérote la facture.
+     *
+     * Ce n’était pourtant pas un état, mais un échec : la page proposait
+     * « Verser l’acompte », et le bouton répondait que le paiement n’était
+     * pas ouvert. On ne propose pas un geste pour le refuser ensuite.
+     */
+    public static function horsLigne(): bool
+    {
+        return ! self::estOuverte() && ! self::enDemonstration();
+    }
+
     private static function client(): StripeClient
     {
         return new StripeClient(config('chatterie.paiement.stripe.cle_secrete'));

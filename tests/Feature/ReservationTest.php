@@ -203,6 +203,105 @@ class ReservationTest extends TestCase
         $this->assertSame(KittenStatus::Disponible, $chaton->fresh()->statut);
     }
 
+    /* ── le reglement hors ligne ─────────────────────── */
+
+    /**
+     * L'eleveur peut ne pas vouloir de paiement en ligne.
+     *
+     * C'est le cas le plus frequent : l'acompte arrive par virement, par
+     * cheque ou de la main a la main le jour de la visite. L'administration
+     * savait deja l'enregistrer — « Acompte recu (hors ligne) » marque la
+     * reservation payee, bloque le chaton et numerote la facture.
+     *
+     * La page de la famille, elle, ne le savait pas. Sans compte de paiement
+     * et sans mode demonstration, elle proposait quand meme « Verser
+     * l'acompte », et le bouton repondait que le paiement n'etait pas ouvert.
+     * On ne propose pas un geste pour le refuser ensuite.
+     */
+    private function horsLigne(): void
+    {
+        config([
+            'chatterie.paiement.demonstration'  => false,
+            'chatterie.paiement.stripe.cle_secrete' => null,
+        ]);
+    }
+
+    public function test_sans_paiement_en_ligne_la_page_n_offre_aucun_bouton_de_versement(): void
+    {
+        $this->horsLigne();
+
+        $chaton = $this->chatonDisponible();
+        $reservation = $this->reservationPour($chaton);
+
+        $html = $this->get($reservation->lienPublic())->assertOk()->getContent();
+
+        $this->assertStringNotContainsString(
+            route('reservation.payer', ['jeton' => $reservation->jeton]),
+            $html,
+            'La page propose encore de verser l\'acompte alors qu\'aucun paiement '
+            .'en ligne n\'est ouvert : le bouton ne peut que refuser.',
+        );
+    }
+
+    public function test_sans_paiement_en_ligne_la_page_dit_comment_verser_l_acompte(): void
+    {
+        $this->horsLigne();
+
+        $chaton = $this->chatonDisponible();
+        $reservation = $this->reservationPour($chaton);
+
+        $this->get($reservation->lienPublic())
+            ->assertOk()
+            ->assertSee('Comment verser l’acompte', escape: false)
+            // Le reste de la page ne bouge pas : le chaton, le montant, le contrat.
+            ->assertSee($chaton->nom)
+            ->assertSee("300\u{00A0}€")
+            ->assertSee(route('reservation.contrat', ['jeton' => $reservation->jeton]), escape: false);
+    }
+
+    /** Le texte que l'eleveur ecrit depuis son espace passe devant le texte par defaut. */
+    public function test_l_eleveur_ecrit_lui_meme_la_marche_a_suivre(): void
+    {
+        $this->horsLigne();
+
+        \App\Models\Setting::updateOrCreate(
+            ['cle' => 'paiement.instructions'],
+            ['libelle' => 'Comment verser l\'acompte', 'valeur' => 'Virement sur le compte de la chatterie, RIB sur demande.', 'groupe' => 'contact'],
+        );
+
+        \Illuminate\Support\Facades\Cache::flush();
+
+        $chaton = $this->chatonDisponible();
+        $reservation = $this->reservationPour($chaton);
+
+        $this->get($reservation->lienPublic())
+            ->assertOk()
+            ->assertSee('Virement sur le compte de la chatterie');
+    }
+
+    /**
+     * Et le circuit complet : l'acompte arrive autrement, l'eleveur
+     * l'enregistre, et la famille retrouve sa facture au meme endroit.
+     */
+    public function test_l_acompte_encaisse_hors_ligne_bloque_le_chaton_et_emet_la_facture(): void
+    {
+        $this->horsLigne();
+
+        $chaton = $this->chatonDisponible();
+        $reservation = $this->reservationPour($chaton);
+
+        $reservation->payer();
+
+        $this->assertSame(ReservationStatus::Payee, $reservation->fresh()->statut);
+        $this->assertSame(KittenStatus::Reserve, $chaton->fresh()->statut);
+        $this->assertTrue($reservation->fresh()->aUneFacture());
+
+        // Hors demonstration, la facture prend une serie datee, pas « DEMO ».
+        $this->assertStringStartsWith(now()->format('Y').'-', $reservation->fresh()->facture_numero);
+
+        $this->get(route('reservation.facture', ['jeton' => $reservation->jeton]))->assertOk();
+    }
+
     /* ── la notification de paiement ─────────────────────────────── */
 
     /**

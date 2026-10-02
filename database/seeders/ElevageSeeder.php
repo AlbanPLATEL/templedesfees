@@ -133,6 +133,8 @@ class ElevageSeeder extends Seeder
             ['cle' => 'contact.avis_google',  'libelle' => 'Lien vers les avis Google', 'valeur' => null, 'groupe' => 'contact'],
             ['cle' => 'contact.email',        'libelle' => 'Email',                    'valeur' => 'letempledesfees@outlook.fr',    'groupe' => 'contact'],
             ['cle' => 'contact.facebook',     'libelle' => 'Facebook',                 'valeur' => 'https://www.facebook.com/profile.php?id=61550725534940', 'groupe' => 'contact'],
+            ['cle' => 'paiement.instructions', 'libelle' => 'Comment verser l’acompte (si le paiement en ligne est fermé)', 'valeur' => null, 'groupe' => 'contact'],
+            ['cle' => 'contact.tiktok',       'libelle' => 'TikTok',                   'valeur' => 'https://www.tiktok.com/@templedesfees', 'groupe' => 'contact'],
             ['cle' => 'contact.instagram',    'libelle' => 'Instagram',                'valeur' => 'https://www.instagram.com/chatteriedutempledesfees/', 'groupe' => 'contact'],
             // Mentions obligatoires : vides, donc signalees "À compléter" sur le site.
             ['cle' => 'legal.siren',          'libelle' => 'SIREN / SIRET',            'valeur' => '819 229 394', 'groupe' => 'legal', 'est_obligatoire' => true],

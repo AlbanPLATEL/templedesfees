@@ -3,6 +3,7 @@
     $mail  = \App\Models\Setting::get('contact.email', 'letempledesfees@outlook.fr');
     $insta = \App\Models\Setting::get('contact.instagram');
     $fb    = \App\Models\Setting::get('contact.facebook');
+    $tt    = \App\Models\Setting::get('contact.tiktok');
     $siren = \App\Models\Setting::get('legal.siren');
     $nom   = \App\Models\Setting::get('elevage.nom', 'La Chatterie du Temple des Fées');
     $telLien = \Illuminate\Support\Str::of($tel)->replace(' ', '')->replaceFirst('0', '+33');
@@ -62,6 +63,9 @@
                     @endif
                     @if($fb)
                         <x-social-link type="facebook" :url="$fb" handle="Chatterie du Temple des Fées" />
+                    @endif
+                    @if($tt)
+                        <x-social-link type="tiktok" :url="$tt" handle="@templedesfees" />
                     @endif
                 </div>
 
