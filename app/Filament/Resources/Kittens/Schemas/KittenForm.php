@@ -142,8 +142,20 @@ class KittenForm
                             'Illustre la fiche et la vignette dans la liste des chatons.'),
                     ]),
 
+                /*
+                 * Le panneau bloquait le bouton tant que les deux numeros
+                 * manquaient, et annoncait que la fiche restait en brouillon.
+                 * C'etait trop tot : on ne puce pas un nouveau-ne, et le
+                 * numero de portee met des semaines a revenir du LOOF. Les
+                 * chatons restaient invisibles pendant les semaines ou les
+                 * familles se decident.
+                 *
+                 * Les numeros sont toujours reclames — ici, sur la fiche
+                 * publique et sur le tableau de bord — mais ils ne tiennent
+                 * plus la porte fermee.
+                 */
                 Section::make('Publication')
-                    ->description("Une annonce de cession doit porter le numéro d'identification du chaton et le numéro de portée LOOF. Tant qu'il en manque un, la fiche reste en brouillon et n'est pas visible sur le site.")
+                    ->description("Une annonce de cession doit porter le numéro d’identification du chaton et le numéro de portée LOOF. Un nouveau-né n’a encore ni l’un ni l’autre : la fiche se publie quand même, et annonce elle-même que l’identification est en cours. Aucun départ ne se fait avant qu’ils soient saisis.")
                     ->columns(1)
                     ->schema([
                         TextInput::make('icad_numero')
@@ -155,13 +167,13 @@ class KittenForm
 
                         Toggle::make('est_publie')
                             ->label('Publier la fiche sur le site')
-                            ->disabled(fn (Get $get) => self::manquantes($get) !== [])
                             ->helperText(function (Get $get) {
                                 $manquantes = self::manquantes($get);
 
                                 return $manquantes === []
-                                    ? 'Les deux mentions obligatoires sont renseignées : la fiche peut être publiée.'
-                                    : 'Publication impossible, il manque '.implode(' et ', $manquantes).'.';
+                                    ? 'Les deux mentions obligatoires sont renseignées.'
+                                    : 'La fiche affichera « à compléter » : il manque '
+                                      .implode(' et ', $manquantes).'.';
                             }),
                     ]),
             ]);

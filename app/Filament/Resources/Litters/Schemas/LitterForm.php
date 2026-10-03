@@ -51,10 +51,17 @@ class LitterForm
                             ->options(fn () => Cat::where('sexe', 'femelle')->orderBy('nom')->pluck('nom', 'id'))
                             ->searchable(),
 
+                        /*
+                         * Pas obligatoire : une portee se prepare parfois avant
+                         * que la date soit arretee, et l'exiger bloquait toute
+                         * autre modification de la fiche en attendant. Le
+                         * tableau de bord la reclame, le site affiche
+                         * « a completer » tant qu'elle manque.
+                         */
                         DatePicker::make('date_naissance')
                             ->label('Date de naissance')
                             ->displayFormat('d/m/Y')
-                            ->required()
+                            ->helperText('À remplir dès que vous l’avez : c’est elle qui donne l’âge des chatons et la date de départ.')
                             ->live(onBlur: true)
                             // L'age legal de cession se deduit de la naissance : on le pose
                             // pour eviter une saisie a la main qui pourrait le raccourcir.

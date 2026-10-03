@@ -143,12 +143,22 @@ class BackOfficeFormulairesTest extends TestCase
         $this->assertDatabaseHas('litters', ['slug' => 'portee-c']);
     }
 
-    public function test_une_portee_sans_date_de_naissance_est_refusee(): void
+    /**
+     * Une portee se cree sans sa date de naissance.
+     *
+     * Elle etait obligatoire, et l eleveur ne pouvait donc rien enregistrer
+     * sur une portee tant qu il ne l avait pas sous la main — ni corriger un
+     * nom, ni poser une photo. Elle reste reclamee par le tableau de bord et
+     * affichee « a completer » sur le site, mais elle ne tient plus la porte.
+     */
+    public function test_une_portee_se_cree_sans_date_de_naissance(): void
     {
         Livewire::test(CreateLitter::class)
             ->fillForm(['code' => 'D', 'slug' => 'portee-d', 'date_naissance' => null])
             ->call('create')
-            ->assertHasFormErrors(['date_naissance' => 'required']);
+            ->assertHasNoFormErrors();
+
+        $this->assertDatabaseHas('litters', ['slug' => 'portee-d', 'date_naissance' => null]);
     }
 
     /**
@@ -210,9 +220,13 @@ class BackOfficeFormulairesTest extends TestCase
 
         $chaton = Kitten::where('slug', 'cannelle')->firstOrFail();
 
-        $this->assertFalse((bool) $chaton->est_publie,
-            'Une fiche sans numero ICAD ne doit jamais ressortir publiee, meme si '
-            ."la case est cochee : c'est l'article L214-8-1 du code rural.");
+        $this->assertTrue((bool) $chaton->est_publie,
+            'Un chaton qui vient de naitre n\'est pas puce, et doit pouvoir etre '
+            .'presente : la case cochee doit etre respectee.');
+
+        /* La mention manquante se dit sur la fiche, elle ne la cache plus. */
+        $this->assertContains("numéro d'identification ICAD du chaton",
+            $chaton->mentionsManquantes());
     }
 
     public function test_un_chaton_sans_portee_est_refuse(): void

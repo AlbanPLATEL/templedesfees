@@ -136,13 +136,21 @@ class ParcoursEleveurTest extends TestCase
 
         /* ── 3. Sans numero ICAD, elle reste en brouillon ───────────── */
 
-        $this->assertFalse((bool) $chaton->est_publie,
-            'Ses petits ont cinq semaines et ne sont pas puces : la fiche doit '
-            ."rester en brouillon, meme si la case est cochee. C'est l'article "
-            .'L214-8-1 du code rural.');
+        /*
+         * Ses petits ont cinq semaines et ne sont pas puces. La fiche se
+         * publie quand meme : c'est pendant ces semaines-la que les familles
+         * se decident, et la cacher jusqu'au pucage reviendrait a la montrer
+         * quand tout est deja reserve. Elle annonce elle-meme que
+         * l'identification est en cours.
+         */
+        $this->assertTrue((bool) $chaton->est_publie);
 
-        $this->get('/chatons')->assertDontSee('Cannelle');
-        $this->get("/chatons/{$chaton->slug}")->assertNotFound();
+        $this->get('/chatons')->assertOk()->assertSee('Cannelle');
+
+        $this->get("/chatons/{$chaton->slug}")
+            ->assertOk()
+            ->assertSee('Identification en cours')
+            ->assertSee('À compléter');
 
         /* ── 4. Il saisit le numero, et publie ──────────────────────── */
 
@@ -157,6 +165,7 @@ class ParcoursEleveurTest extends TestCase
         $chaton->refresh();
 
         $this->assertTrue((bool) $chaton->est_publie);
+        $this->assertSame([], $chaton->mentionsManquantes());
 
         $this->get('/chatons')
             ->assertOk()
