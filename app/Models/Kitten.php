@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\KittenStatus;
 use App\Models\Concerns\ASexe;
 use App\Models\Concerns\AUneGalerie;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,18 +15,21 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 /**
  * Un chaton de l'elevage.
  *
- * REGLE METIER CENTRALE
- * ---------------------
+ * LES MENTIONS OBLIGATOIRES
+ * -------------------------
  * L'article L214-8-1 du code rural impose que toute annonce de cession d'un chat
  * affiche le numero d'identification de l'animal et le numero de portee LOOF.
- * Une fiche chaton ne peut donc pas etre publiee tant que ces deux numeros sont vides :
- * elle reste en brouillon. La regle est appliquee a trois niveaux —
- *   1. estPubliable() ici, la regle exprimee en PHP ;
- *   2. KittenObserver qui repasse est_publie a false a chaque enregistrement ;
- *   3. le scope publies(), qui revalide la condition en SQL a chaque lecture
- *      publique. C'est lui qui rattrape ce que l'observer ne peut pas voir :
- *      les mises a jour de masse et un numero de portee vide apres coup.
- * Ne pas contourner : c'est la raison d'etre de ce champ.
+ *
+ * La fiche refusait donc de se publier tant que les deux manquaient. C'etait
+ * trop tot : on ne puce pas un nouveau-ne, et le numero de portee met des
+ * semaines a revenir du LOOF. Les chatons restaient invisibles precisement
+ * pendant les semaines ou les familles se decident.
+ *
+ * Les numeros ne bloquent donc plus l'affichage. Ils restent reclames, mais la
+ * ou ils se voient : mentionsManquantes() les liste, la fiche publique affiche
+ * « identification en cours » a leur place, et le tableau de bord les redemande
+ * a chaque ouverture tant qu'ils sont vides. Rien n'est cache, et rien n'est
+ * invente.
  */
 class Kitten extends Model
 {
@@ -101,6 +105,37 @@ class Kitten extends Model
         return $this->hasMany(AdoptionRequest::class);
     }
 
+    /**
+     * Les vrais freres et soeurs : memes pere ET meme mere.
+     *
+     * Ce n'est pas « les chatons de la meme portee », meme si aujourd'hui les
+     * deux reviennent au meme. Un couple peut avoir une seconde portee, et ses
+     * chatons restent freres et soeurs d'une annee sur l'autre.
+     *
+     * Et ce n'est surtout pas « les chatons de l'elevage ». Halunke est le pere
+     * de deux portees, l'une avec Tika, l'autre avec A'Neora : ces chatons-la
+     * sont demi-freres. Les ranger sous le meme mot serait faux, et sur une
+     * fiche d'elevage un lien de parente faux ne se rattrape pas.
+     */
+    public function fratrie(): Builder
+    {
+        $portee = $this->litter;
+
+        /* Une portee sans parents connus n'etablit aucun lien : on prefere une
+           fratrie vide a une fratrie fausse. */
+        if (! $portee?->pere_id || ! $portee?->mere_id) {
+            return static::query()->whereRaw('1 = 0');
+        }
+
+        return static::query()
+            ->whereKeyNot($this->getKey())
+            ->whereHas('litter', fn ($q) => $q
+                ->where('pere_id', $portee->pere_id)
+                ->where('mere_id', $portee->mere_id))
+            ->orderBy('ordre')
+            ->orderBy('nom');
+    }
+
     public function photos(): MorphMany
     {
         return $this->morphMany(Photo::class, 'attachable')->orderBy('ordre');
@@ -137,7 +172,8 @@ class Kitten extends Model
         return $manquantes;
     }
 
-    public function estPubliable(): bool
+    /** Les deux mentions legales sont-elles renseignees ? */
+    public function mentionsCompletes(): bool
     {
         return $this->mentionsManquantes() === [];
     }
@@ -171,16 +207,16 @@ class Kitten extends Model
      */
     public function scopePublies($query)
     {
-        return $query->publiables()
-            ->where('est_publie', true)
+        return $query->where('est_publie', true)
             ->orderBy('ordre')
             ->orderBy('nom');
     }
 
     /**
-     * La seule condition legale, sans le drapeau : le miroir SQL de estPubliable().
-     * Sert aussi au back-office pour lister les fiches pretes a etre publiees.
-     * Les deux doivent rester d'accord — c'est ce que verifie KittenPublicationTest.
+     * Le miroir SQL de mentionsCompletes(). Il ne filtre plus l'affichage : il
+     * sert au back-office a trier les fiches dont les numeros sont arrives de
+     * celles qui les attendent encore. Les deux doivent rester d'accord — c'est
+     * ce que verifie KittenPublicationTest.
      */
     public function scopePubliables($query)
     {

@@ -151,7 +151,7 @@
         <span class="rubrique" style="letter-spacing:.24em">{{ $portee->code }} · {{ $portee->pere?->nom }} × {{ $portee->mere?->nom }}</span>
         <span>
             <strong>{{ $nbDispo }} chaton{{ $nbDispo > 1 ? 's' : '' }} disponible{{ $nbDispo > 1 ? 's' : '' }}</strong>
-            <span style="color:var(--ivoire-dim)">— né{{ $portee->nb_chatons > 1 ? 's' : '' }} le {{ $portee->date_naissance->translatedFormat('j F Y') }}@if($portee->phraseDisponibilite()), {{ $portee->phraseDisponibilite() }}@endif</span>
+            <span style="color:var(--ivoire-dim)">— né{{ $portee->nb_chatons > 1 ? 's' : '' }} le {{ $portee->date_naissance?->translatedFormat('j F Y') ?? '—' }}@if($portee->phraseDisponibilite()), {{ $portee->phraseDisponibilite() }}@endif</span>
         </span>
         <a class="lien" href="{{ route('kittens.index') }}">Voir la portée</a>
     </div>

@@ -55,7 +55,7 @@ class KittensTable
                     ->badge()
                     ->state(fn (Kitten $chaton) => $chaton->est_publie ? 'En ligne' : 'Brouillon')
                     ->color(fn (Kitten $chaton) => $chaton->est_publie ? 'success' : 'gray')
-                    ->description(fn (Kitten $chaton) => $chaton->estPubliable()
+                    ->description(fn (Kitten $chaton) => $chaton->mentionsCompletes()
                         ? null
                         : 'Il manque '.implode(' et ', $chaton->mentionsManquantes())),
 

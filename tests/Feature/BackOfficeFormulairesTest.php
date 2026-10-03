@@ -169,15 +169,24 @@ class BackOfficeFormulairesTest extends TestCase
         $chaton = $portee->kittens()->firstOrFail();
         $chaton->forceFill(['icad_numero' => '250269812345678', 'est_publie' => true])->save();
 
-        $this->assertTrue($chaton->fresh()->estPubliable());
+        $this->assertTrue($chaton->fresh()->mentionsCompletes());
 
         Livewire::test(EditLitter::class, ['record' => $portee->getRouteKey()])
             ->fillForm(['loof_portee_numero' => ''])
             ->call('save')
             ->assertHasNoFormErrors();
 
-        $this->assertFalse($chaton->fresh()->estPubliable());
-        $this->assertSame(0, Kitten::publies()->where('litter_id', $portee->id)->count());
+        /*
+         * Le numero vide ne retire plus le chaton du site : il n'est pas une
+         * condition d'affichage mais une mention a completer. La fiche reste
+         * en ligne et annonce elle-meme que l'identification est en cours.
+         */
+        $this->assertFalse($chaton->fresh()->mentionsCompletes());
+        $this->assertSame(1, Kitten::publies()->where('id', $chaton->id)->count());
+
+        $this->get('/chatons/'.$chaton->slug)
+            ->assertOk()
+            ->assertSee('Identification en cours');
     }
 
     /* ═══ chatons ═════════════════════════════════════════════════════ */

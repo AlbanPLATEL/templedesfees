@@ -75,7 +75,7 @@
                                     <th>{{ $portee->code }}</th>
                                     <td>
                                         <span class="verdict" style="font-size:18px">{{ $portee->kittens_count }} chaton{{ $portee->kittens_count > 1 ? 's' : '' }}</span>
-                                        <small>{{ $portee->date_naissance->translatedFormat('F Y') }}</small>
+                                        <small>{{ $portee->date_naissance?->translatedFormat('F Y') ?? '' }}</small>
                                     </td>
                                 </tr>
                             @endforeach

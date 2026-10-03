@@ -65,7 +65,7 @@ class Photo extends Model
                     fn ($fiche, string $type) => match ($type) {
                         Cat::class    => $fiche->where('est_publie', true),
                         Litter::class => $fiche->where('est_publiee', true),
-                        Kitten::class => $fiche->publiables()->where('est_publie', true),
+                        Kitten::class => $fiche->where('est_publie', true),
                     },
                 ));
     }

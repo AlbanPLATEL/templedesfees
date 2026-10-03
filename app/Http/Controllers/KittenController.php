@@ -56,14 +56,14 @@ class KittenController extends Controller
         // Le drapeau seul ne suffit pas : on revalide la regle legale sur la fiche
         // resolue, pour que le 404 tienne meme si est_publie a ete pose par un
         // chemin qui contourne KittenObserver. Cf. Kitten::scopePublies().
-        abort_unless($kitten->est_publie && $kitten->estPubliable(), 404);
+        abort_unless($kitten->est_publie, 404);
 
         $kitten->load(['litter.pere.healthTests', 'litter.mere.healthTests', 'litter.events', 'photos']);
 
         return view('pages.kittens.show', [
             'chaton'  => $kitten,
             'portee'  => $kitten->litter,
-            'fratrie' => $kitten->litter->kittens()->publies()->whereKeyNot($kitten->id)->get(),
+            'fratrie' => $kitten->fratrie()->publies()->get(),
         ]);
     }
 }

@@ -49,12 +49,13 @@ class PagesPubliquesTest extends TestCase
     }
 
     /**
-     * Le seeder laisse volontairement les numeros ICAD et LOOF vides : au premier
-     * demarrage les fiches sont en brouillon et la liste est vide. C'est la regle
-     * legale qui s'applique, pas une panne — la page doit repondre quand meme.
+     * Entre deux portees, aucun chaton n'est en ligne. Ce n'est pas une panne :
+     * la page doit repondre et le dire, pas tomber en erreur.
      */
     public function test_la_liste_des_chatons_repond_meme_sans_fiche_publiee(): void
     {
+        \App\Models\Kitten::query()->update(['est_publie' => false]);
+
         $this->assertSame(0, \App\Models\Kitten::publies()->count());
 
         $this->get('/chatons')->assertOk();

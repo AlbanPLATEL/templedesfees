@@ -56,35 +56,39 @@ class KittenPublicationTest extends TestCase
         $this->get('/chatons/'.$chaton->slug)->assertOk();
     }
 
-    public function test_l_observer_repasse_en_brouillon_une_fiche_sans_numero_icad(): void
+    /**
+     * Un chaton se montre avant d'avoir ses numeros.
+     *
+     * La fiche repassait en brouillon tant que l'ICAD ou le numero de portee
+     * manquait. C'etait trop tot : on ne puce pas un nouveau-ne, et le numero
+     * de portee met des semaines a revenir du LOOF. Les chatons disparaissaient
+     * du site pendant les semaines ou les familles se decident.
+     */
+    public function test_une_fiche_sans_numero_reste_publiee(): void
     {
         $chaton = $this->chaton($this->portee(), null, publie: true);
 
-        $this->assertFalse($chaton->fresh()->est_publie);
+        $this->assertTrue($chaton->fresh()->est_publie,
+            'Un chaton qui vient de naitre doit pouvoir etre presente.');
         $this->assertSame(["numéro d'identification ICAD du chaton"], $chaton->mentionsManquantes());
+        $this->assertFalse($chaton->mentionsCompletes());
+
+        $this->get('/chatons/'.$chaton->slug)->assertOk();
     }
 
-    /**
-     * Le cas que le drapeau seul ne couvrait pas : Eloquent ne declenche ni saving ni
-     * saved sur une mise a jour de masse. C'est exactement ce que fait une action
-     * groupee de back-office du type « publier la selection ».
-     */
-    public function test_une_mise_a_jour_de_masse_ne_peut_pas_publier_une_fiche_non_conforme(): void
+    /** Mais la fiche le dit : rien n'est tu, et rien n'est invente. */
+    public function test_la_fiche_annonce_que_l_identification_est_en_cours(): void
     {
-        $chaton = $this->chaton($this->portee(), null, publie: false);
+        $chaton = $this->chaton($this->portee(), null, publie: true);
 
-        Kitten::query()->update(['est_publie' => true]);
-
-        $this->assertTrue($chaton->fresh()->est_publie, 'Le drapeau a bien ete force en base : le test porte sur ce cas.');
-        $this->assertSame(0, Kitten::publies()->count(), 'Une fiche sans numero ICAD ne doit jamais sortir du scope publies().');
-        $this->get('/chatons/'.$chaton->slug)->assertNotFound();
+        $this->get('/chatons/'.$chaton->slug)
+            ->assertOk()
+            ->assertSee('Identification en cours')
+            ->assertSee('À compléter');
     }
 
-    /**
-     * L'autre angle mort : le numero vit sur la portee, et rien ne repasse ses chatons
-     * en brouillon quand on le vide. La revalidation a la lecture s'en charge.
-     */
-    public function test_vider_le_numero_de_portee_depublie_les_chatons_de_la_portee(): void
+    /** Vider le numero de portee ne fait plus disparaitre ses chatons. */
+    public function test_vider_le_numero_de_portee_laisse_les_chatons_en_ligne(): void
     {
         $portee = $this->portee();
         $chaton = $this->chaton($portee, '250269000000001');
@@ -92,23 +96,27 @@ class KittenPublicationTest extends TestCase
 
         Litter::query()->update(['loof_portee_numero' => null]);
 
-        $this->assertSame(0, Kitten::publies()->count());
-        $this->get('/chatons/'.$chaton->slug)->assertNotFound();
+        $this->assertSame(1, Kitten::publies()->count());
+        $this->get('/chatons/'.$chaton->slug)->assertOk()->assertSee('Identification en cours');
     }
 
-    /** Le scope SQL et la regle PHP doivent dire la meme chose, sinon l'un des deux ment. */
+    /**
+     * Le scope SQL et la regle PHP doivent dire la meme chose, sinon l'un des
+     * deux ment. Ils ne filtrent plus l'affichage, mais le back-office s'en sert
+     * pour trier les fiches dont les numeros sont arrives.
+     */
     public function test_le_scope_sql_et_la_regle_php_restent_d_accord(): void
     {
         $complet   = $this->chaton($this->portee(), '250269000000001');
         $this->chaton($complet->litter, '', publie: true, nom: 'Yuki');
 
-        $publiables = Kitten::publiables()->pluck('id')->all();
+        $completes = Kitten::publiables()->pluck('id')->all();
 
         foreach (Kitten::with('litter')->get() as $chaton) {
             $this->assertSame(
-                $chaton->estPubliable(),
-                in_array($chaton->id, $publiables, true),
-                "Desaccord sur la fiche {$chaton->slug} entre estPubliable() et scopePubliables()."
+                $chaton->mentionsCompletes(),
+                in_array($chaton->id, $completes, true),
+                "Desaccord sur la fiche {$chaton->slug} entre mentionsCompletes() et le scope."
             );
         }
     }

@@ -68,7 +68,7 @@ class CeQuiAttend extends Widget
      */
     private function chatonsEnBrouillon(): ?array
     {
-        $chatons = Kitten::with('litter')->get()->reject->estPubliable();
+        $chatons = Kitten::with('litter')->get()->reject->mentionsCompletes();
 
         if ($chatons->isEmpty()) {
             return null;

@@ -121,7 +121,7 @@ class FiltresTest extends TestCase
             'est_publie'  => true,
         ])->save();
 
-        $this->assertTrue($chaton->fresh()->estPubliable());
+        $this->assertTrue($chaton->fresh()->mentionsCompletes());
 
         $this->get('/chatons')
             ->assertOk()

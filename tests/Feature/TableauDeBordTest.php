@@ -34,7 +34,7 @@ class TableauDeBordTest extends TestCase
         $eleveuse = $this->eleveuse();
 
         // Au sortir du seed, les numeros legaux sont volontairement vides.
-        $this->assertTrue(Kitten::get()->reject->estPubliable()->isNotEmpty());
+        $this->assertTrue(Kitten::get()->reject->mentionsCompletes()->isNotEmpty());
 
         $this->actingAs($eleveuse)
             ->get('/admin')
@@ -120,7 +120,7 @@ class TableauDeBordTest extends TestCase
         // messages traites, photos posees.
         $this->artisan('demo:numeros');
 
-        Kitten::get()->reject->estPubliable()->each->delete();
+        Kitten::get()->reject->mentionsCompletes()->each->delete();
         ContactMessage::query()->update(['est_traite' => true]);
         \App\Models\Review::query()->update(['est_publie' => true]);
         \App\Models\Cat::whereNull('photo_principale')->orWhere('photo_principale', '')

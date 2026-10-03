@@ -14,7 +14,7 @@
             niveau="1"
             eyebrow="{{ $portee->code }} · {{ $portee->pere?->nom }} × {{ $portee->mere?->nom }}"
             titre="La portée en cours"
-            lede="Nés le {{ $portee->date_naissance->translatedFormat('j F Y') }}. {{ $portee->phraseDisponibilite() ? \Illuminate\Support\Str::ucfirst($portee->phraseDisponibilite()).', ' : '' }}identifiés, vaccinés, vermifugés et inscrits au LOOF." />
+            lede="{{ $portee->date_naissance ? 'Nés le '.$portee->date_naissance->translatedFormat('j F Y').'. ' : '' }}{{ $portee->phraseDisponibilite() ? \Illuminate\Support\Str::ucfirst($portee->phraseDisponibilite()).', ' : '' }}identifiés, vaccinés, vermifugés et inscrits au LOOF." />
 
         <nav class="filtres monte" aria-label="Filtrer les chatons" data-filtre-barre>
             <a href="{{ route('kittens.index') }}" @if(! $statut) aria-current="true" @endif>Tous ({{ $total }})</a>
@@ -61,7 +61,7 @@
             </div>
 
             <x-record titre="Calendrier de la {{ \Illuminate\Support\Str::lower($portee->code) }}"
-                      meta="{{ $portee->date_naissance->translatedFormat('j F Y') }}">
+                      meta="{{ $portee->date_naissance?->translatedFormat('j F Y') ?? '' }}">
                 <div style="padding-top:18px"><x-timeline :events="$portee->events" /></div>
             </x-record>
         </div>
@@ -87,7 +87,7 @@
                 <figure class="vue">
                     <img src="{{ asset($archive->photo_principale ?: 'images/cats/portee-b.webp') }}"
                          alt="{{ $archive->code }}, chatons Maine Coon" loading="lazy">
-                    <figcaption>{{ $archive->code }} — {{ $archive->date_naissance->translatedFormat('F Y') }}</figcaption>
+                    <figcaption>{{ $archive->code }}{{ $archive->date_naissance ? ' — '.$archive->date_naissance->translatedFormat('F Y') : '' }}</figcaption>
                 </figure>
                 <div class="pile">
                     <p class="lede">{{ $archive->description }}</p>

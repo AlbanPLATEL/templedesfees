@@ -32,14 +32,14 @@
 
                 @if($fratrie->isNotEmpty())
                     <div>
-                        <p class="rubrique" style="margin-bottom:12px">La fratrie</p>
+                        <p class="rubrique" style="margin-bottom:12px">Ses frères et sœurs</p>
                         <div class="rail">
                             @foreach($fratrie as $frere)
                                 <a class="vignette" style="opacity:1;width:clamp(64px,8vw,82px)"
                                    href="{{ route('kittens.show', $frere) }}"
-                                   aria-label="{{ $frere->nom }}, de la même portée">
+                                   aria-label="{{ $frere->nom }}, frère ou sœur de {{ $chaton->nom }}">
                                     <img src="{{ asset($frere->photo_principale) }}"
-                                         alt="{{ $frere->nom }}, de la même portée" loading="lazy">
+                                         alt="{{ $frere->nom }}, frère ou sœur de {{ $chaton->nom }}" loading="lazy">
                                 </a>
                             @endforeach
                         </div>
@@ -51,11 +51,13 @@
 
                 <x-liasse>
                 <x-record titre="Identité" meta="{{ $chaton->reference }}"
-                          note="Les numéros LOOF et ICAD se saisissent depuis l’espace de gestion. Tant qu’ils sont vides, la fiche reste en brouillon et n’est pas publiée — c’est la règle imposée par la réglementation sur les annonces de cession.">
+                          note="{{ $chaton->mentionsCompletes()
+                                    ? 'Identification complète : numéro de portée LOOF et puce ICAD enregistrés.'
+                                    : 'Identification en cours. Un chaton n’est pucé qu’à quelques semaines, et le numéro de portée revient du LOOF ensuite : les deux apparaissent ici dès qu’ils arrivent. Aucun départ ne se fait avant.' }}">
                     <table>
                         <tr><th>Sexe</th><td>{{ $chaton->sexeLibelle() }}</td></tr>
-                        <tr><th>Date de naissance</th><td>{{ $portee->date_naissance->translatedFormat('j F Y') }}</td></tr>
-                        <tr><th>Âge</th><td>{{ $chaton->ageEnSemaines() }} semaines</td></tr>
+                        <tr><th>Date de naissance</th><td>{{ $portee->date_naissance?->translatedFormat('j F Y') ?? 'à compléter' }}</td></tr>
+                        <tr><th>Âge</th><td>{{ $chaton->ageEnSemaines() ? $chaton->ageEnSemaines().' semaines' : 'à compléter' }}</td></tr>
                         <tr><th>Robe</th><td>{{ $chaton->robe }}</td></tr>
                         @if($chaton->poidsFormate())
                             <tr>
