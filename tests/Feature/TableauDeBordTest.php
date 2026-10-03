@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\ContactMessage;
 use App\Models\Kitten;
+use App\Models\Litter;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -120,7 +121,17 @@ class TableauDeBordTest extends TestCase
 
         // On met la maison en ordre : numeros legaux, fiches publiables,
         // messages traites, photos posees.
-        $this->artisan('demo:numeros');
+        /*
+         * Le seeder laisse les numeros vides : on les pose ici, explicitement.
+         * Une commande de demonstration le faisait avant — elle visait une
+         * portee qui n'existe plus, et depubliait tout sur son passage.
+         */
+        Litter::query()->update(['loof_portee_numero' => 'LO-2026-0001']);
+
+        Kitten::all()->each(fn (Kitten $k) => $k->forceFill([
+            'icad_numero' => '250269'.str_pad((string) $k->id, 9, '0', STR_PAD_LEFT),
+            'est_publie'  => true,
+        ])->save());
 
         Kitten::get()->reject->mentionsCompletes()->each->delete();
         ContactMessage::query()->update(['est_traite' => true]);

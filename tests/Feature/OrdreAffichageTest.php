@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Cat;
 use App\Models\Kitten;
+use App\Models\Litter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -42,8 +43,17 @@ class OrdreAffichageTest extends TestCase
 
     public function test_reordonner_un_chaton_change_l_affichage(): void
     {
-        // Le seeder laisse les numeros vides : on les pose pour rendre publiable.
-        $this->artisan('demo:numeros');
+        /*
+         * Le seeder laisse les numeros vides : on les pose ici, explicitement.
+         * Une commande de demonstration le faisait avant — elle visait une
+         * portee qui n'existe plus, et depubliait tout sur son passage.
+         */
+        Litter::query()->update(['loof_portee_numero' => 'LO-2026-0001']);
+
+        Kitten::all()->each(fn (Kitten $k) => $k->forceFill([
+            'icad_numero' => '250269'.str_pad((string) $k->id, 9, '0', STR_PAD_LEFT),
+            'est_publie'  => true,
+        ])->save());
 
         $chatons = Kitten::publies()->get();
         $this->assertGreaterThan(1, $chatons->count());
@@ -61,7 +71,17 @@ class OrdreAffichageTest extends TestCase
      */
     public function test_le_formulaire_d_adoption_suit_le_meme_ordre(): void
     {
-        $this->artisan('demo:numeros');
+        /*
+         * Le seeder laisse les numeros vides : on les pose ici, explicitement.
+         * Une commande de demonstration le faisait avant — elle visait une
+         * portee qui n'existe plus, et depubliait tout sur son passage.
+         */
+        Litter::query()->update(['loof_portee_numero' => 'LO-2026-0001']);
+
+        Kitten::all()->each(fn (Kitten $k) => $k->forceFill([
+            'icad_numero' => '250269'.str_pad((string) $k->id, 9, '0', STR_PAD_LEFT),
+            'est_publie'  => true,
+        ])->save());
 
         $attendu = Kitten::publies()->disponibles()->pluck('id')->all();
         $this->assertNotEmpty($attendu);

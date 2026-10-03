@@ -122,16 +122,17 @@ trois niveaux :
 3. `Kitten::scopePublies()` — utilisé par toutes les requêtes du site public,
    et `KittenController::show()` renvoie un 404 sur une fiche non publiée.
 
-Le seeder laisse volontairement ces numéros vides : au premier lancement, les
-fiches chatons sont donc en brouillon. C'est le comportement attendu.
+Le seeder laisse volontairement ces numéros vides. Les fiches sont publiées
+quand même — un nouveau-né n'est pas pucé, et le numéro de portée met des
+semaines à revenir du LOOF — et elles affichent « à compléter » à la place,
+en annonçant que l'identification est en cours. Le tableau de bord les
+réclame tant qu'elles manquent.
 
-```powershell
-php artisan demo:numeros           # remplit les numéros, publie les fiches
-php artisan demo:numeros --reset   # vide les numéros, tout repasse en brouillon
-```
-
-Faire l'aller-retour devant la cliente est la démonstration la plus parlante de
-la règle. La commande est à supprimer une fois le back-office en place.
+Deux commandes de démonstration (`demo:numeros`, `demo:reservation`) rempliss-
+aient ces numéros et fabriquaient une réservation pour montrer le parcours.
+Elles ont été **supprimées avec les données de démonstration** : elles visaient
+une portée effacée depuis, et leur `--reset` dépubliait toutes les fiches du
+site, y compris les vraies.
 
 Aucun nom d'adoptant n'est jamais affiché côté public. Les statuts
 « réservé » et « adopté » portent sur le chaton, pas sur la famille.
@@ -380,17 +381,13 @@ par un bouton qui marque la réservation payée. Il sert à montrer le parcours 
 à rien d'autre : **il refuse de s'activer dès qu'une clef secrète existe**, et la
 page l'annonce en toutes lettres.
 
-### Montrer le parcours aujourd'hui
+### Le parcours aujourd'hui
 
-```bash
-php artisan demo:numeros        # publie les fiches chatons
-php artisan demo:reservation    # crée une réservation et donne le lien
-```
-
-Avec `PAIEMENT_DEMONSTRATION=true`, le bouton marque la réservation payée sans
-carte ni prélèvement, et le chaton passe en « réservé » sur le site. La page
-l'annonce en rouge, en toutes lettres. `demo:reservation --reset` efface tout et
-rend les chatons.
+L'élevage ne prend **pas** de paiement en ligne. Une réservation se crée depuis
+le back-office, la famille reçoit un lien privé qui récapitule le chaton,
+l'acompte et la façon de le verser, et l'éleveur enregistre l'acompte à son
+arrivée avec l'action « Acompte reçu (hors ligne) » — ce geste bloque le
+chaton et numérote la facture.
 
 Les **conditions de l'acompte** sont écrites et affichées — sur la page de
 réservation, juste au-dessus de la case à cocher, et sur les mentions légales.
