@@ -29,7 +29,7 @@ class TableauDeBordTest extends TestCase
         return User::where('email', 'letempledesfees@outlook.fr')->firstOrFail();
     }
 
-    public function test_il_signale_les_fiches_chaton_en_brouillon_et_dit_pourquoi(): void
+    public function test_il_reclame_les_fiches_chaton_a_completer_et_dit_pourquoi(): void
     {
         $eleveuse = $this->eleveuse();
 
@@ -39,8 +39,10 @@ class TableauDeBordTest extends TestCase
         $this->actingAs($eleveuse)
             ->get('/admin')
             ->assertOk()
-            ->assertSee('brouillon')
-            ->assertSee('ICAD');
+            ->assertSee('à compléter', false)
+            ->assertSee('ICAD')
+            // La fiche n'est plus cachee : la carte ne doit pas le pretendre.
+            ->assertDontSee('n’apparaît pas sur le site', false);
     }
 
     public function test_il_signale_un_message_sans_reponse(): void

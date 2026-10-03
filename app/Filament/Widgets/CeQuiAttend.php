@@ -87,8 +87,8 @@ class CeQuiAttend extends Widget
         })->unique()->implode(' et ');
 
         return [
-            'titre'  => $chatons->count() > 1 ? 'Fiches chaton en brouillon' : 'Fiche chaton en brouillon',
-            'detail' => "Il manque le $manques. Tant qu'il manque, la fiche n'apparaît pas sur le site — c'est une obligation légale, pas un réglage.",
+            'titre'  => $chatons->count() > 1 ? 'Fiches chaton à compléter' : 'Fiche chaton à compléter',
+            'detail' => "Il manque le $manques. La fiche reste en ligne et annonce que l'identification est en cours, mais aucun départ ne peut se faire avant — c'est une obligation légale, pas un réglage.",
             'nombre' => $chatons->count(),
             'url'    => route('filament.admin.resources.kittens.index'),
             'ton'    => 'attention',
